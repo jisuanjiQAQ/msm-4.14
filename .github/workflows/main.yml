@@ -3,8 +3,8 @@ name: 构建
 
 # 定义触发工作流的条件，这里设置为手动触发
 on:
+  workflow_call:
   workflow_dispatch:
-
 # 定义工作流中的作业
 jobs:
   build:
