@@ -44,7 +44,7 @@ jobs:
     - name: 编译内核
       run: |
         # 使用make命令编译内核，-j$(nproc)表示使用所有CPU核心来加速编译过程
-       echo ＂正在滥用资源＂
+        ls
 
     - name: 打包内核构建产物
       run: |
