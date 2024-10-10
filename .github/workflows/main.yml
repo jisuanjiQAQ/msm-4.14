@@ -30,10 +30,20 @@ jobs:
         # 复制配置文件到内核源码目录
         cp arch/arm64/configs/vendor/sdm660-perf_defconfig .config
 
+    - name: 迷之操作
+      run: |
+        git clone https://github.com/kdrag0n/proton-clang.git -b 20210522 --depth 1 $GITHUB_WORKSPACE/workdir/clang
+        export KBUILD_BUILD_HOST=Github-Action
+        export KBUILD_BUILD_USER=$(echo ${{ github.actor }} | tr A-Z a-z)
+        export ARCH="arm64"
+        export SUBARCH="arm64"
+        export PATH="$GITHUB_WORKSPACE/workdir/clang/bin/:$PATH"
+        export CROSS_COMPILE="aarch64-linux-gnu-"
+
     - name: 编译内核
       run: |
         # 使用make命令编译内核，-j$(nproc)表示使用所有CPU核心来加速编译过程
-        make -j$(nproc) OUT=out
+        make -j$(nproc) OUT=out CC=clang
 
     - name: 打包内核构建产物
       run: |
