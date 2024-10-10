@@ -1,0 +1,53 @@
+# 定义工作流的名称
+name: 构建
+
+# 定义触发工作流的条件，这里设置为手动触发
+on:
+  workflow_dispatch:
+
+# 定义工作流中的作业
+jobs:
+  build:
+    # 指定作业运行的环境
+    runs-on: ubuntu-latest
+
+    # 作业中的各个步骤
+    steps:
+    - name: 检出代码仓库
+      uses: actions/checkout@v2
+
+    - name: 安装依赖
+      run: |
+        # 更新apt包索引
+        sudo apt update
+        # 安装编译内核所需的依赖
+        sudo apt install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
+        # 额外依赖，根据内核4.14的特定需求添加
+        sudo apt install -y libncurses5-dev libssl-dev bc
+
+    - name: 复制内核配置文件
+      run: |
+        # 复制配置文件到内核源码目录
+        cp arch/arm64/configs/vendor/sdm660-perf_defconfig .config
+
+    - name: 编译内核
+      run: |
+        # 使用make命令编译内核，-j$(nproc)表示使用所有CPU核心来加速编译过程
+        make -j$(nproc) OUT=out
+
+    - name: 打包内核构建产物
+      run: |
+        # 定义打包文件的名称，使用当前北京时间作为文件名
+        DATE=$(date +"%Y%m%d%H%M%S")
+        ZIP_NAME="kernel-build-$DATE.zip"
+        # 打包out目录下的文件
+        cd out
+        zip -r ../$ZIP_NAME *
+
+    - name: 上传构建产物
+      uses: actions/upload-artifact@v2
+      with:
+        # 使用当前北京时间作为artifact的名称
+        name: kernel-artifact-${{ env.DATE }}
+        # 定义上传的文件路径，这里是刚才打包的zip文件
+        path: kernel-build-${{ env.DATE }}.zip
