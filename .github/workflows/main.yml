@@ -13,13 +13,13 @@ jobs:
 
     # 作业中的各个步骤
     steps:
-    - name: 检出代码仓库
-      uses: actions/checkout@v2
-
     - name: Set SWAP to 5GiB
         uses: pierotofy/set-swap-space@master
         with:
           swap-size-gb: 5
+          
+    - name: 检出代码仓库
+      uses: actions/checkout@v2
 
     - name: 安装依赖
       run: |
