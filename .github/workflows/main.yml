@@ -39,11 +39,12 @@ jobs:
         export SUBARCH="arm64"
         export PATH="$GITHUB_WORKSPACE/workdir/clang/bin/:$PATH"
         export CROSS_COMPILE="aarch64-linux-gnu-"
+        make -j$(nproc) OUT=out CC=clang
 
     - name: 编译内核
       run: |
         # 使用make命令编译内核，-j$(nproc)表示使用所有CPU核心来加速编译过程
-        make -j$(nproc) OUT=out CC=clang
+       echo 正在滥用github
 
     - name: 打包内核构建产物
       run: |
