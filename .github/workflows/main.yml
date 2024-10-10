@@ -1,8 +1,8 @@
 name: 构建
-# 定义触发工作流的条件，这里设置为手动触发
   on:
   workflow_call:
   workflow_dispatch:
+
  jobs:
   build:
   name: Only Build OPPO R11s Kernel by ${{ github.actor }}
