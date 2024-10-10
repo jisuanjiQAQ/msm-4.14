@@ -45,7 +45,7 @@ jobs:
         zip -r ../$ZIP_NAME *
 
     - name: 上传构建产物
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         # 使用当前北京时间作为artifact的名称
         name: kernel-artifact-${{ env.DATE }}
