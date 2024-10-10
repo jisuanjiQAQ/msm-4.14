@@ -45,7 +45,7 @@ jobs:
           export CROSS_COMPILE="aarch64-linux-gnu-"
           cd $GITHUB_WORKSPACE/workdir/source
           export OPPO_TARGET_DEVICE="MSM_17011"
-          make O=out sdm660-perf_defconfig CC=clang
+          make O=out defconfig CC=clang
           make -j$(nproc --all) O=out CC=clang
   
       - name: Check a kernel output files
