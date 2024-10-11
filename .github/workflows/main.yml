@@ -4,8 +4,7 @@ on:
   
 jobs:
   build:
-  name: Only Build OPPO R11s Kernel by ${{ github.actor }}
-    # 指定作业运行的环境
+  # 指定作业运行的环境
     runs-on: ubuntu-latest
     # 作业中的各个步骤
     steps:
