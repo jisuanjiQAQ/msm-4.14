@@ -3,7 +3,7 @@ on:
   workflow_call:
   workflow_dispatch:
 
-jobs:
+ jobs:
   build:
   name: Only Build OPPO R11s Kernel by ${{ github.actor }}
     # 指定作业运行的环境
