@@ -37,7 +37,7 @@ jobs:
         export PATH="$GITHUB_WORKSPACE/workdir/clang/bin/:$PATH"
         export CROSS_COMPILE="aarch64-linux-gnu-"
         make mrproper
-        make OUT=out sdm660_defconfig CC=clang
+        make OUT=out defconfig CC=clang
         make -j$(nproc) OUT=out CC=clang
 
     - name: 编译内核
