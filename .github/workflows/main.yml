@@ -20,7 +20,7 @@ jobs:
         # 安装编译内核所需的依赖
         sudo apt install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
         # 额外依赖，根据内核4.14的特定需求添加
-        sudo apt install -y libncurses5-dev libssl-dev bc
+        sudo apt install -y libncurses5-dev libssl-dev bc g++-aarch64-linux-gnu
         sudo apt install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev libncurses5-dev bc
     - name: 复制内核配置文件
       run: |
